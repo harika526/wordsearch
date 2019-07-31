@@ -18,13 +18,15 @@ class Command(BaseCommand):
         path = r"G:\eng_word_search\wordsearch\wordsearchapi\word_search.tsv"
 
         print("Reading words from .tsv file...")
-        reader = csv.DictReader(open(path, 'r'), fieldnames=('word', 'usage_count'))
+        reader = csv.DictReader(open(path, 'r'), fieldnames=('word','usage'))
         for row in reader:
-            w = Words(
-                word=row['word'],
-                usage_count=row['usage_count']
+            # split row at \t, since tsv file contains fields separated by tab(\t) i.e:'the\t23135851162'
+            w = row['word'].split()
+            word = Words(
+                word=w[0],
+                usage_count=w[1]
             )
-            word_list.append(w)
+            word_list.append(word)
 
         print("Loading words to database...")
 
