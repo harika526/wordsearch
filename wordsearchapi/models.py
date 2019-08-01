@@ -9,7 +9,7 @@ class Words(models.Model):
     usage_count = models.BigIntegerField()
 
     class Meta:
-        ordering = ['usage_count']
+        ordering = ['-usage_count', 'word', Length('word')]
 
     def __str__(self):
         return self.word
