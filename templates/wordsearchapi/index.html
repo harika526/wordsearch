@@ -9,19 +9,6 @@
     </span>
   </div>
 </form>
-<!--<div class="content">-->
-<!--  {% if search_string %}-->
-<!--    <h5>Search results for: {{search_string}}</h5>-->
-<!--    <hr>  -->
-<!--    {% for word in result %}-->
-<!--      <div class="result">-->
-<!--        <h5>{{ word }}</h5>-->
-<!--      </div>-->
-<!--      {% empty %}-->
-<!--        <p>Sorry! No results found.</p>-->
-<!--      {% endfor %}-->
-<!--  {% endif %}-->
-<!--</div>-->
 {% endblock content %}
 
 {% block javascript %}
@@ -45,9 +32,11 @@
             success: function (msg) {
                         console.log("building list");
                         var l = [];
-                        for (let value of Object.values(msg)) {
-                          l.push(value['word']);
-                        }
+                        if(Object.keys(msg).length != 0){
+                            for (let value of Object.values(msg)) {
+                              l.push(value['word']);
+                            }
+                        } else{ l.push('No results...') }
                         response(l);
                         console.log(l);
             },
